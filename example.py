@@ -7,21 +7,21 @@ import re
 import sys
 
 #
-# Complete the 'minMoves' function below.
+# Complete the 'twoSum' function below.
 #
-# The function is expected to return an INTEGER.
-# The function accepts INTEGER_ARRAY arr as parameter.
+# The function is expected to return an INTEGER_ARRAY.
+# The function accepts following parameters:
+#  1. INTEGER_ARRAY arr
+#  2. INTEGER target
 #
 
-def minMoves(arr):
-    arr.sort()
-
-    median = arr[len(arr)//2]
-    step= 0
-    for num in arr:
-        value =abs(num-median)
-        step += value
-    return step
+def twoSum(arr, target):
+    seen = {}
+    for i,num in enumerate(arr):
+        complement = target - num
+        if complement in seen:
+            return [seen[complement],i]
+        seen[num]= i
 
     
 
@@ -33,8 +33,11 @@ if __name__ == '__main__':
 
     arr = list(map(int, input().rstrip().split()))
 
-    result = minMoves(arr)
+    target = int(input().strip())
 
-    fptr.write(str(result) + '\n')
+    result = twoSum(arr, target)
+
+    fptr.write('\n'.join(map(str, result)))
+    fptr.write('\n')
 
     fptr.close()
