@@ -1,12 +1,9 @@
-# Problem: Maximum Subarray Sum (Kadane's Algorithm)
-# Given an integer array, find the contiguous subarray with the largest sum and return that sum.
+# Problem: Find Missing Number
+# Given an array of n-1 integers in the range [1, n], find the one missing number. Every number appears exactly once except for the missing one.
 # Example:
-# Input:  arr = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
-# Output: 6
-# ([4, -1, 2, 1] has the largest sum = 6)
-
-# HackerRank Starting Point:
-# python#!/bin/python3
+# Input:  arr = [1, 2, 4, 5, 6], n = 6
+# Output: 3
+#!/bin/python3
 
 import math
 import os
@@ -15,21 +12,26 @@ import re
 import sys
 
 #
-# Complete the 'maxSubarray' function below.
+# Complete the 'findMissing' function below.
 #
 # The function is expected to return an INTEGER.
-# The function accepts INTEGER_ARRAY arr as parameter.
+# The function accepts following parameters:
+#  1. INTEGER_ARRAY arr
+#  2. INTEGER n
 #
 
-def maxSubarray(arr):
-    max_number= arr[0]
-    current_num = arr[0]
-    for num in arr[1:]:
-        current_num = max(num,current_num+num)
-        max_number  = max(current_num,max_number)
-    return max_number
-   
+# def findMissing(arr, n):
+#     arr.sort()
+#     for i in range(len(arr)):
+#         if arr[i] != i+1:
+#             return i + 1
+#     return n
+    
 
+def findMissing(arr, n):
+    formula = n*(n+1)//2
+    arr_sum = sum(arr)
+    return formula- arr_sum
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
 
@@ -37,7 +39,7 @@ if __name__ == '__main__':
 
     arr = list(map(int, input().rstrip().split()))
 
-    result = maxSubarray(arr)
+    result = findMissing(arr, n)
 
     fptr.write(str(result) + '\n')
 
