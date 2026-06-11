@@ -1,8 +1,3 @@
-# Problem: Find Missing Number
-# Given an array of n-1 integers in the range [1, n], find the one missing number. Every number appears exactly once except for the missing one.
-# Example:
-# Input:  arr = [1, 2, 4, 5, 6], n = 6
-# Output: 3
 #!/bin/python3
 
 import math
@@ -11,36 +6,50 @@ import random
 import re
 import sys
 
+class SinglyLinkedListNode:
+    def __init__(self, node_data):
+        self.data = node_data
+        self.next = None
+
+class SinglyLinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+
+    def insert_node(self, node_data):
+        node = SinglyLinkedListNode(node_data)
+        if not self.head:
+            self.head = node
+            self.tail = node
+        else:
+            self.tail.next = node
+            self.tail = node
+
 #
-# Complete the 'findMissing' function below.
+# Complete the 'reverseList' function below.
 #
-# The function is expected to return an INTEGER.
-# The function accepts following parameters:
-#  1. INTEGER_ARRAY arr
-#  2. INTEGER n
+# The function is expected to return a SinglyLinkedListNode.
+# The function accepts SinglyLinkedListNode head as parameter.
 #
 
-# def findMissing(arr, n):
-#     arr.sort()
-#     for i in range(len(arr)):
-#         if arr[i] != i+1:
-#             return i + 1
-#     return n
-    
+def reverseList(head):
+    # Write your code here
+    pass
 
-def findMissing(arr, n):
-    formula = n*(n+1)//2
-    arr_sum = sum(arr)
-    return formula- arr_sum
+
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
 
     n = int(input().strip())
 
-    arr = list(map(int, input().rstrip().split()))
+    ll = SinglyLinkedList()
+    for _ in range(n):
+        ll.insert_node(int(input().strip()))
 
-    result = findMissing(arr, n)
+    result = reverseList(ll.head)
 
-    fptr.write(str(result) + '\n')
+    while result:
+        fptr.write(str(result.data) + '\n')
+        result = result.next
 
     fptr.close()
