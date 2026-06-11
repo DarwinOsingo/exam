@@ -22,9 +22,13 @@ import sys
 #
 
 def maxSubarray(arr):
-    # Write your code here
-    pass
-
+    max_number= arr[0]
+    current_num = arr[0]
+    for num in arr[1:]:
+        current_num = max(num,current_num+num)
+        max_number  = max(current_num,max_number)
+    return max_number
+   
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
