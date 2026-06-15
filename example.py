@@ -1,40 +1,43 @@
 {
     "page": 1,
-    "total_pages": 10,
+    "total_pages": 3,
     "data": [
         {
-            "team1": "Barcelona",
-            "team2": "Real Madrid",
-            "team1goals": "1",
-            "team2goals": "1"
+            "Title": "The Dark Knight",
+            "Year": 2008,
+            "imdbID": "tt0468569"
         },
         {
-            "team1": "Arsenal",
-            "team2": "Chelsea",
-            "team1goals": "2",
-            "team2goals": "0"
+            "Title": "Iron Man",
+            "Year": 2008,
+            "imdbID": "tt0371746"
         }
     ]
 }
 import requests
 
-def getDrawnMatches(year):
-    count = 0
-    url = f"https://jsonmock.hackerrank.com/api/football_matches?year={year}&team1={team}&page={page}"
-    response= requests.get(url).json()
-    total_pages = response['total_pages']
-   
-    for pages in range(1,total_pages+1):
-        info = response['data']
-        for matches in info:
-            if int(matches['team1goals'])==int(matches['team2goals']):
-                count += 1
-    return count 
+def getMoviesByYear(year):
+    URL = F"https://jsonmock.hackerrank.com/api/movies?Year={year}&page={page}"
+    response= requests.get(URL).json()
+    total_pages=int(response['total_pages'])+1
+    movies = []
+    for page in range(1,total_pages):
+        info = requests.get(F"https://jsonmock.hackerrank.com/api/movies?Year={year}&page={page}").json()
+        release = info['data']
+        for movie in release:
+            if year == movie['Year']:
+                 movies.append( movie['Title'])
+    return sorted(movies)
             
-    
+
+
+            
+
+
 
 
 if __name__ == '__main__':
     year = int(input())
-    result = getDrawnMatches(year)
-    print(result)
+    result = getMoviesByYear(year)
+    for title in result:
+        print(title)
