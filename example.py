@@ -13,31 +13,25 @@
 import requests
 
 def getTotalGoals(team, year):
-
-    URL = f"https://jsonmock.hackerrank.com/api/football_matches?year={year}&team1={team}&page={page}"
-    URL1 = f"https://jsonmock.hackerrank.com/api/football_matches?year={year}&team2={team}&page={page}"
-    response_team1 = requests.get(URL).json
-    total_pages = response_team1['total_pages']
-    for pages in range(1,total_pages+1):
-        data = response_team1['data']
-        team1= data['team1']
-        team1goals= data['team1goals']
-        return team1
-    response_team2 = requests.get(URL1).json
-    for pages in range(1,total_pages+1):
-        data = response_team2['data']
-        team2= data['team2']
-        team2goals = data['team2goals']
-
-        return team2
-    return team1,team2
-
+    total_goals= 0
+    URL = f"https://jsonmock.hackerrank.com/api/football_matches?year={year}&team1={team}&page=1"
+    response = requests.get(URL).json()
+    total_pages = response['total_pages']
+    for page in range (1,total_pages+1):
+        info = response['data']
+        for match in info:
+            total_goals += int(match['team1goals'])
+    URL1 = f"https://jsonmock.hackerrank.com/api/football_matches?year={year}&team1={team}&page={page}"
     
+
+
+
+
+   
         
     
 
 
-    response_team2 = requests.get(URL1).json
 
     
     pass
