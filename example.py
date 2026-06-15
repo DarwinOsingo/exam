@@ -1,55 +1,50 @@
-#!/bin/python3
+{
+    "page": 1,
+    "total_pages": 2,
+    "data": [
+        {
+            "team1": "Barcelona",
+            "team2": "Real Madrid",
+            "team1goals": "3",
+            "team2goals": "1"
+        }
+    ]
+}
+import requests
 
-import math
-import os
-import random
-import re
-import sys
+def getTotalGoals(team, year):
 
-class SinglyLinkedListNode:
-    def __init__(self, node_data):
-        self.data = node_data
-        self.next = None
+    URL = f"https://jsonmock.hackerrank.com/api/football_matches?year={year}&team1={team}&page={page}"
+    URL1 = f"https://jsonmock.hackerrank.com/api/football_matches?year={year}&team2={team}&page={page}"
+    response_team1 = requests.get(URL).json
+    total_pages = response_team1['total_pages']
+    for pages in range(1,total_pages+1):
+        data = response_team1['data']
+        team1= data['team1']
+        team1goals= data['team1goals']
+        return team1
+    response_team2 = requests.get(URL1).json
+    for pages in range(1,total_pages+1):
+        data = response_team2['data']
+        team2= data['team2']
+        team2goals = data['team2goals']
 
-class SinglyLinkedList:
-    def __init__(self):
-        self.head = None
-        self.tail = None
+        return team2
+    return team1,team2
 
-    def insert_node(self, node_data):
-        node = SinglyLinkedListNode(node_data)
-        if not self.head:
-            self.head = node
-            self.tail = node
-        else:
-            self.tail.next = node
-            self.tail = node
+    
+        
+    
 
-#
-# Complete the 'reverseList' function below.
-#
-# The function is expected to return a SinglyLinkedListNode.
-# The function accepts SinglyLinkedListNode head as parameter.
-#
 
-def reverseList(head):
-    # Write your code here
+    response_team2 = requests.get(URL1).json
+
+    
     pass
 
 
 if __name__ == '__main__':
-    fptr = open(os.environ['OUTPUT_PATH'], 'w')
-
-    n = int(input().strip())
-
-    ll = SinglyLinkedList()
-    for _ in range(n):
-        ll.insert_node(int(input().strip()))
-
-    result = reverseList(ll.head)
-
-    while result:
-        fptr.write(str(result.data) + '\n')
-        result = result.next
-
-    fptr.close()
+    team = input()
+    year = int(input())
+    result = getTotalGoals(team, year)
+    print(result)
